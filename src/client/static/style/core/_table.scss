@@ -1,0 +1,38 @@
+table,
+.table {
+
+  th {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  td {
+    text-align: left;
+
+    &.date,
+    &.checkbox {
+      text-align: center;
+    }
+
+    &.checkbox > div {
+      display: flex;
+      justify-content: center;
+    }
+
+    &.number,
+    &.numeric,
+    &.amount,
+    &.currency {
+      text-align: right;
+    }
+  }
+
+  tfoot {
+
+    td {
+      padding: 0;
+      text-align: center;
+      height: auto;
+    }
+  }
+}

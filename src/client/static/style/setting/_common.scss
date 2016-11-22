@@ -1,0 +1,18 @@
+$border-size: 1px;
+$border-radius: 0px;
+$border-color: #424242;
+
+@mixin color-tail() {
+  background-color: $color-tail;
+  color: $color-tail-info;
+}
+@mixin color-lead() {
+  background-color: $color-lead;
+  color: $color-lead-info;
+}
+
+$main-bg-color: #337AB7;
+$main-color: $color-white;
+
+$separator-color: #9E9E9E;
+$separator: 1px solid $separator-color;

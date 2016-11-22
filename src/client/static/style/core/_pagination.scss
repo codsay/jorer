@@ -1,0 +1,14 @@
+.pagination {
+  padding: map-get($spaces, sm);
+
+  .item {
+    display: inline-block;
+    &.active {
+
+    }
+
+    a, span {
+      padding: map-get($spaces, sm) map-get($spaces, md);
+    }
+  }
+}

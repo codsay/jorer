@@ -1,0 +1,62 @@
+.box {
+  display: flex;
+}
+
+.box-v {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-h {
+  display: flex;
+  flex-direction: row;
+}
+
+.box,
+.box-v,
+.box-h {
+  &.full {
+    flex-wrap: wrap;
+
+    >* {
+      flex: 1;
+    }
+  }
+}
+
+.flex-full {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
+}
+.left-order {
+  order: 0;
+}
+.left-order-0 {
+  order: 0;
+}
+.left-order-1 {
+  order: 1;
+}
+.left-order-2 {
+  order: 2;
+}
+
+.right-order {
+  order: 999;
+}
+.right-order-0 {
+  order: 999;
+}
+.right-order-1 {
+  order: 998;
+}
+.right-order-2 {
+  order: 998;
+}

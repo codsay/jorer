@@ -1,0 +1,32 @@
+{
+  "name": "jorer",
+  "version": "1.0.0",
+  "profiles": ["pro"],
+
+  "prefix": "jr",
+  "prefixName": "${prefix}",
+  "prefixTitle": "",
+
+  "private": "64f43f53-5856-4fc4-b817-507f804e9436",
+  "public": "2c43276a-f1df-4ad6-aeef-3b6eb0822cb9",
+
+  "log": {
+    "path": "logs/${prefixName}",
+    "level": "info",
+    "config": false
+  },
+
+  "build": {
+    "target": "node_modules/@app",
+    "webpack": {
+      "config": ["webpack.config.universal", "webpack.config.common", "webpack.target.production"],
+      "debug": false
+    }
+  },
+
+  "server": {
+    "url": "http://localhost:${server.port}",
+    "port": 8080
+  }
+
+}

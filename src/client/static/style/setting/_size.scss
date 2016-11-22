@@ -1,0 +1,44 @@
+$screen-sizes: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 34em,
+  // Medium screen / tablet
+  md: 48em,
+  // Large screen / desktop
+  lg: 62em,
+  // Extra large screen / wide desktop
+  xl: 75em
+);
+
+$spaces: (
+	xs: .1em,
+	sm: .3em,
+	md: .6em,
+	lg: .9em
+);
+
+$space-small: map-get($spaces, sm);
+$space-separator: map-get($spaces, sm);
+$space-easy-read: map-get($spaces, md);
+$space-hoverable: map-get($spaces, md);
+
+$border-size: map-get($spaces, xs);
+
+$header-height: 4em;
+$footer-height: 3em;
+
+//==========================
+// Media queries
+//==========================
+@mixin respond-to($size) { 
+  @if map-has-key($screen-sizes, $size) {
+    @media (min-width: #{map-get($screen-sizes, $size)}) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

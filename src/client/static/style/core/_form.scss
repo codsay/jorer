@@ -1,0 +1,14 @@
+.form-group {
+}
+
+.form-control {
+  width: 99%;
+  padding: .7em 0;
+}
+
+.form-control .is-focused .ng-invalid,
+.form-control .ng-touched.ng-invalid {
+  border: 1px solid #ff0000;
+  outline: none;
+  box-shadow: 0 0 1px #ff0000;
+}

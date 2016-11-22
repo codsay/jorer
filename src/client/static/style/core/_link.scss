@@ -1,0 +1,18 @@
+a,
+.link {
+  cursor: pointer;
+}
+
+a[disabled],
+a.disabled,
+.link[disabled],
+.link.disabled {
+  cursor: not-allowed;
+}
+
+a,
+.link {
+  &:hover {
+    font-weight: bold;
+  }
+}

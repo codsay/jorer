@@ -1,0 +1,9 @@
+{
+  "prefixName": "${prefix}_dev",
+  "prefixTitle": "[${prefix}_DEV] ",
+
+  "log": {
+    "level": "debug",
+    "config": true
+  }
+}

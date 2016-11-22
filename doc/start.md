@@ -1,9 +1,11 @@
 ### Step by step
 
+# Use Node v-6.9.x
+
 # Prepare project's skeleton
 - Init the project, of course :D
 - Platform packages
--- `electron electron-builder electron-devtools-installer electron-packager`
+-- `electron electron-builder electron-devtools-installer electron-packager electron-debug`
 -- `react react-dom react-redux react-router react-router-redux redux redux-thunk`
 - Building packages
 -- `webpack webpack-dev-server`

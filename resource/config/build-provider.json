@@ -1,0 +1,8 @@
+{
+  "build": {
+    "webpack": {
+      "mode": "build",
+      "config": ["!", "webpack.config.universal", "webpack.target.provider"]
+    }
+  }
+}
