@@ -43,6 +43,9 @@ app.on('ready', () => {
 	mainWindow = createMainWindow();
 });
 
+
+const { ipcMain } = require('electron');
+
 const drivelist = require('drivelist');
 ipcMain.on('api/drive/list-root', (event, arg) => {
   drivelist.list((error, drives) => {

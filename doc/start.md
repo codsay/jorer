@@ -9,7 +9,7 @@
 -- `react react-dom react-redux react-router react-router-redux redux redux-thunk`
 - Building packages
 -- `webpack webpack-dev-server`
--- `babel babel-core`
+-- `babel babel-core babel-preset-latest babel-preset-react`
 -- `node-sass`
 - Webpack's loaders
 -- `file-loader`

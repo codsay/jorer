@@ -19,7 +19,8 @@ const webpackConfig = {
   "output": {
     "filename": "[name].js",
     "chunkFilename": "[id].chunk.js"
-  }
+  },
+  "target": "electron-renderer"
 };
 for (const configName of webpackConfigs) {
   require("./" + configName)(webpack, webpackConfig, config);
