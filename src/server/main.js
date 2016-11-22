@@ -42,3 +42,13 @@ app.on('activate', () => {
 app.on('ready', () => {
 	mainWindow = createMainWindow();
 });
+
+const drivelist = require('drivelist');
+ipcMain.on('api/drive/list-root', (event, arg) => {
+  drivelist.list((error, drives) => {
+    if (error) {
+      throw error;
+    }
+    event.sender.send('api/drive/list-root$', drives);
+  });
+})

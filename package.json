@@ -4,21 +4,20 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"npm run electron ./src/server/main\" \"npm run start-hot\"",
+    "start": "concurrently \"electron ./src/server/main\" \"npm run start-hot\"",
     "buildp": "npm run gulp -- execute ---task=webpack ---profile=build-provider",
     "buildc": "npm run gulp -- execute ---task=webpack ---profile=build-client",
     "resource": "npm run gulp -- execute ---task=resource",
     "start-hot": "npm run gulp -- execute ---task=resource,resource:w,webpack-server ---profile=build-client",
     "build": "electron-packager . --out=dist --asar --overwrite --all",
-    "gulp": "gulp",
-    "electron": "electron"
+    "gulp": "gulp"
   },
   "dependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.18.2",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
-    "electron": "^1.4.7",
+    "drivelist": "^5.0.3",
     "electron-builder": "^8.6.0",
     "electron-devtools-installer": "^2.0.1",
     "electron-packager": "^8.3.0",

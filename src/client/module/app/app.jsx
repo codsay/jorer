@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MuiThemeProvider } from "material-ui";
 
+import Layout from "../layout/layout";
+
 const App = () => (
   <MuiThemeProvider>
-    <div className="main">
-      Hello Jorer!
-    </div>
+    <Layout />
   </MuiThemeProvider>
 );
 
