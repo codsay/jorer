@@ -6,21 +6,19 @@ module.exports = function(webpack, webpackConfig, config) {
 
   webpackConfig.context = config.getSource();
   webpackConfig.resolve = {
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".tsx"],
     modules: ["node_modules", "src"],
     alias: {
       "@app/fusion": "fusion",
       "@app/common": "client/common",
       "@app/core": "client/core",
       "@app/module": "client/module",
-      "@app/static": "client/static",
-
-      "masonry-layout": "masonry-layout/masonry.js"
+      "@app/static": "client/static"
     }
   };
 
   webpackConfig.module.rules.push({
-    test: /\.jsx$/,
+    test: /\.tsx$/,
     use: [{
       loader: "babel-loader",
       options: {
