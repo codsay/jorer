@@ -47,11 +47,52 @@ app.on('ready', () => {
 const { ipcMain } = require('electron');
 
 const drivelist = require('drivelist');
-ipcMain.on('api/drive/list-root', (event, arg) => {
-  drivelist.list((error, drives) => {
-    if (error) {
-      throw error;
-    }
-    event.sender.send('api/drive/list-root$', drives);
-  });
+const fs = require('fs');
+const path = require("path");
+const util = require('util');
+
+ipcMain.on('api/drive/list-all', (event, item) => {
+  if (item && item.isDirectory) {
+    fs.readdir(item.path, (error, paths) => {
+      if (error) throw error;
+      let otherItems = [];
+      let dirItems = [];
+      paths.forEach(pathDir => {
+        const fullDir = path.join(item.path, pathDir);
+        try {
+          const stats = fs.statSync(fullDir);
+          let newItem = {
+            name: pathDir,
+            path: fullDir,
+            isFile: stats.isFile(),
+            isDirectory: stats.isDirectory(),
+            isBlockDevice: stats.isBlockDevice(),
+            isFIFO: stats.isFIFO(),
+            isSocket: stats.isSocket()
+          };
+          if (newItem.isDirectory) {
+            dirItems.push(newItem);
+          } else {
+            otherItems.push(newItem);
+          }
+        } catch (e) {
+        }
+      });
+      event.sender.send('api/drive/list-all$', dirItems.concat(otherItems));
+    });
+  } else {
+    drivelist.list((error, drives) => {
+      if (error) throw error;
+      const points = drives[0].mountpoints;
+      const items = [];
+      for (let point of points) {
+        items.push({
+          name: path.join(point.path, "/"),
+          path: path.join(point.path, "/"),
+          isDirectory: true
+        });
+      }
+      event.sender.send('api/drive/list-all$', items);
+    });
+  }
 })
