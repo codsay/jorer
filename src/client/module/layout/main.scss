@@ -15,8 +15,8 @@
 
     .left {
       width: 15em;
-      overflow: auto;
       background-color: #21252b;
+      padding-right: .15em;
     }
 
     .middle {
@@ -35,4 +35,8 @@
       background-color: #282c34;
     }
   }
+}
+
+.display-panel {
+
 }

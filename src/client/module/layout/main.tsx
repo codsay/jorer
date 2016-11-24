@@ -5,6 +5,12 @@ import interact from "interact.js";
 import Node from "../navigation/node";
 import DisplayPanel from "../content/display-panel";
 
+import { remote } from "electron";
+const fs = remote.require('fs');
+const drivelist = remote.require('drivelist');
+const path = remote.require("path");
+const util = remote.require('util');
+
 const DEFAULT_CONFIG = {
   edges: {
     top: true,
@@ -41,7 +47,9 @@ export default class Main extends Component {
     super(props);
 
     this.state = {
-      item: {}
+      rootItems: [],
+      items: [],
+      currentItems: []
     };
 
     interact(".cs-resizable")
@@ -81,27 +89,86 @@ export default class Main extends Component {
           }
         }
       });
+
+    this.handlePath = this.handlePath.bind(this);
+    this.handlePath(null, -1);
   }
 
-  updateContent(item) {
-    console.log({
-      item,
-      sate: this.state,
-      this
-    });
-    this.setState({
-      item
-    });
+  handlePath(item, index) {
+    if (item && item.children && item.children.length) {
+      item.hideChildren = !item.hideChildren;
+      this.setState({
+        items: this.state.items,
+        currentItems: !item.hideChildren ? item.children : (item.parent ? item.parent.children : this.state.rootItems)
+      })
+    } else {
+      if (item) {
+        if (item.isDirectory) {
+          fs.readdir(item.path, (error, paths) => {
+            if (error) throw error;
+            let otherItems = [];
+            let dirItems = [];
+            paths.forEach(pathDir => {
+              const fullDir = path.join(item.path, pathDir);
+              try {
+                const stats = fs.statSync(fullDir);
+                let newItem = {
+                  name: pathDir,
+                  path: fullDir,
+                  isFile: stats.isFile(),
+                  isDirectory: stats.isDirectory(),
+                  isBlockDevice: stats.isBlockDevice(),
+                  isFIFO: stats.isFIFO(),
+                  isSocket: stats.isSocket(),
+                  children: [],
+                  parent: item
+                };
+                if (newItem.isDirectory) {
+                  dirItems.push(newItem);
+                } else {
+                  otherItems.push(newItem);
+                }
+              } catch (e) {
+              }
+            }); 
+            item.children = dirItems.concat(otherItems);
+            this.setState({
+              items: this.state.items,
+              currentItems: item.children
+            })
+          });
+        }
+      } else {
+        drivelist.list((error, drives) => {
+          if (error) throw error;
+          const points = drives[0].mountpoints;
+          const items = [];
+          for (let point of points) {
+            items.push({
+              name: path.join(point.path, "/"),
+              path: path.join(point.path, "/"),
+              isDirectory: true,
+              children: []
+            });
+          }
+          this.setState({
+            rootItems: items,
+            items: items,
+            currentItems: items
+          })
+        });
+      }
+    }
   }
 
   render() {
     return (
       <div className="main">
         <div className="left navigation cs-resizable">
-          <Node parentIndex={0} level={0} updateContent={(item) => {this.updateContent(item)}} />
+          <Node items={this.state.items} parentIndex={0} level={0} handlePath={this.handlePath} />
         </div>
         <div className="middle">
-          <DisplayPanel item={this.state.item} />
+          <DisplayPanel items={this.state.currentItems} />
         </div>
         <div className="right">
           Content
