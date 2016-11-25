@@ -7,13 +7,17 @@ export default class Node extends Component {
     super(props);
   }
 
+  nodeClass(item) {
+    return "item" + (item && item.active ? " active" : "");
+  }
+
   render() {
     return (
       <div className={`node node-level-${this.props.level}`}>
         { this.props.items &&
           this.props.items.map((item, i) =>
-            <div className="item" key={`${this.props.parentIndex}_${this.props.level}_${i}`}>
-              <div className="path" onClick={(event) => {this.props.handlePath(item, i)}}>{item.name}</div>
+            <div className={this.nodeClass(item)} key={`${this.props.parentIndex}_${this.props.level}_${i}`}>
+              <div className="path" onClick={(event) => {this.props.handlePath(item)}}>{item.name}</div>
               { item.children
                 && !item.hideChildren
                 && <Node items={item.children} level={this.props.level + 1} parentIndex={i} handlePath={this.props.handlePath} /> }

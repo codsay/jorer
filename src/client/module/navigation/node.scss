@@ -5,6 +5,15 @@
 
       .path {
         cursor: default;
+        padding: 0.1em 0.3em;
+      }
+
+      &.active {
+        background: #2c313a;
+
+        > .path {
+          background: #b1b1b1;
+        }
       }
     }
   }

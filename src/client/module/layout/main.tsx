@@ -49,6 +49,7 @@ export default class Main extends Component {
     this.state = {
       rootItems: [],
       items: [],
+      prevItem: null,
       currentItems: []
     };
 
@@ -64,7 +65,7 @@ export default class Main extends Component {
         if (config.edges.left || config.edges.right) {
           let width = event.rect.width;
           if (fixed) {
-            target.style.width = width + "px";   
+            target.style.width = width + "px";
           } else {
             let totalWidth = parent.clientWidth;
             let widthPer = width / totalWidth * 100;
@@ -94,12 +95,18 @@ export default class Main extends Component {
     this.handlePath(null, -1);
   }
 
-  handlePath(item, index) {
+  handlePath(item) {
+    if (item) {
+      if (this.state.prevItem) this.state.prevItem.active = false;
+      this.state.prevItem = item;
+      item.active = true;
+    }
     if (item && item.children && item.children.length) {
       item.hideChildren = !item.hideChildren;
       this.setState({
         items: this.state.items,
-        currentItems: !item.hideChildren ? item.children : (item.parent ? item.parent.children : this.state.rootItems)
+        currentItems: !item.hideChildren ? item.children : (item.parent ? item.parent.children : this.state.rootItems),
+        prevItem: this.state.prevItem
       })
     } else {
       if (item) {
@@ -130,11 +137,12 @@ export default class Main extends Component {
                 }
               } catch (e) {
               }
-            }); 
+            });
             item.children = dirItems.concat(otherItems);
             this.setState({
               items: this.state.items,
-              currentItems: item.children
+              currentItems: item.children,
+              prevItem: this.state.prevItem
             })
           });
         }
@@ -168,7 +176,7 @@ export default class Main extends Component {
           <Node items={this.state.items} parentIndex={0} level={0} handlePath={this.handlePath} />
         </div>
         <div className="middle">
-          <DisplayPanel items={this.state.currentItems} />
+          <DisplayPanel items={this.state.currentItems} handlePath={this.handlePath} />
         </div>
         <div className="right">
           Content
