@@ -2,8 +2,8 @@ import "./main.scss";
 import React, { Component } from "react";
 import interact from "interact.js";
 
-import Node from "../navigation/node";
-import DisplayPanel from "../content/display-panel";
+import { Node } from "../common/tree-view";
+import { DisplayPanel } from "../content/display-panel";
 
 import { remote } from "electron";
 const fs = remote.require('fs');
@@ -14,6 +14,7 @@ const util = remote.require('util');
 const DEFAULT_CONFIG = {
   edges: {
     top: true,
+
     right: true,
     bottom: true,
     left: true
@@ -38,10 +39,8 @@ const config = Object.assign({}, DEFAULT_CONFIG, {
     right: true
   }
 });
-console.log(config);
 
-
-export default class Main extends Component {
+export class Main extends Component {
 
   constructor(props) {
     super(props);

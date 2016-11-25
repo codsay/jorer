@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./target",
+    "sourceMap": true,
+    "jsx": "react"
+  },
+  "excludes": [
+    "./node_modules",
+    "./tool"
+  ]
+}

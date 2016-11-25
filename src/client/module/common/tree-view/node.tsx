@@ -1,7 +1,7 @@
 import "./node.scss";
 import React, { Component } from "react";
 
-export default class Node extends Component {
+export class Node extends Component {
 
   constructor(props) {
     super(props);

@@ -1,2 +1,2 @@
 import "./static/style/main.scss";
-import "./module/app/app";
+import "./module/app/index";
